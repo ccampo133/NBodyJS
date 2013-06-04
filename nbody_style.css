@@ -1,0 +1,88 @@
+﻿html, body
+{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    color: #666666;
+    line-height: 1.25em;
+}
+
+canvas
+{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    border: 1px solid #333333;
+    background: black;
+}
+
+a
+{
+    color: #00CBCB;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover
+{
+    color: #FFFFFF;
+}
+
+#outer
+{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    overflow: visible;
+}
+
+#canvasContainer
+{
+    position: absolute;
+    width: 1000px;
+    height: 560px;
+    top: -280px;
+    left: -500px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#output
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75em;
+    margin-top: 0px;
+    position: absolute;
+    top: -20px;
+    width: 98%;
+}
+
+#header
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    text-decoration:underline;
+    margin-top: 0px;
+    position: absolute;
+    top: -45px;
+    width: 98%;
+}
+
+#copy
+{
+    font-size: 0.6em;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    bottom: -30px;
+    width: 98%;
+}
+
+#footer
+{
+    font-size: 0.6em;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    bottom: -50px;
+    width: 98%;
+}
