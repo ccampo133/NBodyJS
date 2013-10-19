@@ -1,6 +1,4 @@
-﻿function Vector()
-{
-}
+﻿function Vector(){ }
 
 Vector.prototype.xy = function (x, y)
 {

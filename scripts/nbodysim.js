@@ -26,7 +26,8 @@ function init()
 
     window.requestAnimationFrame = (function ()
     {
-        // allows this function to work on any browser as each browser has a different namespace for animation
+        // allows this function to work on any browser as 
+        // each browser has a different namespace for animation
         return window.requestAnimationFrame ||      // chromium 
         window.webkitRequestAnimationFrame ||       // webkit
         window.mozRequestAnimationFrame ||          // mozilla geko
@@ -55,12 +56,36 @@ function init()
 
 function loadInitialBodies()
 {
-    var body1 = new OrbitingBody(100000, getRadiusFromMass(100000), new Vector().xy(50, 0), new Vector().rTheta(29, 90 * Math.PI / 180));
-    body1.color = getColorFromMass(100000);
+    // hard-coded initial conditions
+    var initMass = 100000;
+    var initX = 50;
+    var initY = 0;
+    var initVR = 29;
+    var initVTheta = 90 * Math.PI / 180;  // 90 degrees, in radians
+
+    var body1 = new OrbitingBody(
+                        initMass, 
+                        getRadiusFromMass(initMass), 
+                        new Vector().xy(initX, initY), 
+                        new Vector().rTheta(initVR, initVTheta)
+                        );
+    body1.color = getColorFromMass(initMass);
     body1.trailEnabled = drawTrails;
-    var body2 = new OrbitingBody(100000, getRadiusFromMass(100000), new Vector().xy(-50, 0), new Vector().rTheta(29, 270 * Math.PI / 180));
+    
+    // tweak the initial parameters for the second body.
+    // set the angle of velocity to 270 degrees (-90), in radians.
+    var initVTheta2 = 270 * Math.PI / 180; 
+    
+    var body2 = new OrbitingBody(
+                        initMass, 
+                        getRadiusFromMass(initMass), 
+                        new Vector().xy(-initX, initY), 
+                        new Vector().rTheta(initVR, initVTheta2)
+                        );
     body2.color = "black";
     body2.trailEnabled = drawTrails;
+    
+    // add bodies to the simulation
     bodies.push(body1);
     bodies.push(body2);
 }
@@ -99,7 +124,7 @@ function isCollision(body1, body2)
         return true;
 
     // bodies that are far away are deleted, for computational purposes
-    if (Math.abs(body1.position.x) > 2 * canvas.width || Math.abs(body1.position.y) > 2 * canvas.height)
+    if ((Math.abs(body1.position.x) > 2 * canvas.width) || (Math.abs(body1.position.y) > 2 * canvas.height))
         return true;
 
     return false;
@@ -116,8 +141,9 @@ function gravityAcceleration(body1, body2)
 // solve the equations of motion using the Velocity Verlet algorithm
 function updatePositionsVerlet()
 {
-    // calculate the total gravitational force (acceleration) using Newton's 
-    // law of gravity (and F = ma) and compute the positions according to the Verlet method
+    // calculate the total gravitational force (acceleration) 
+    // using Newton's law of gravity (and F = ma) and compute
+    // the positions according to the Verlet algorithm.
     var a = new Array();
     var removed = false;
     for (var i = 0; i < bodies.length; i++)
@@ -138,7 +164,9 @@ function updatePositionsVerlet()
                     break;
                 }
                 else
+                {
                     a[i] = a[i].add(gravityAcceleration(body1, body2));
+                }
             }
         }
 
@@ -165,12 +193,10 @@ function updatePositionsVerlet()
 
 function getRadiusFromMass(mass)
 {
-    if (mass == 0)
-        return 1.1;
-    else
-        return (10 * (Math.log(mass) / Math.LN10) - 14) / 3;
+    return (mass == 0) ? 1.1 : (10 * (Math.log(mass) / Math.LN10) - 14) / 3;
 }
 
+// colors are important... it has to be pretty!
 function getColorFromMass(mass)
 {
     if (mass == 100000)
@@ -189,9 +215,12 @@ function mouseWheelHandler(e)
     {
         switch (sign)
         {
-            case -1: // scrolled up
+            // scrolled up
+            case -1:
                 if (newMass == 100000 && newColor == "black")
+                {
                     newColor = getColorFromMass(newMass);
+                }
                 else if (newBody.mass > 100)
                 {
                     newMass /= 10;
@@ -203,9 +232,13 @@ function mouseWheelHandler(e)
                     newColor = getColorFromMass(newMass);
                 }
                 break;
-            case 1: // scrolled down
+            
+            // scrolled down
+            case 1:
                 if (newMass == 100000 && newBody.color == getColorFromMass(newMass))
+                {
                     newColor = "black";
+                }
                 else if (newBody.mass == 0)
                 {
                     newMass = 100;
@@ -227,6 +260,7 @@ function mouseWheelHandler(e)
 
 function mouseDownListener(e)
 {
+    // add a new body to the simulation on click (if it isn't paused).
     if (!paused)
     {
         mouseDown = true;
@@ -234,8 +268,13 @@ function mouseDownListener(e)
         var bRect = canvas.getBoundingClientRect();
         var mouseX = (e.clientX - bRect.left) * (canvas.width / bRect.width) - canvas.width / 2;
         var mouseY = canvas.height / 2 - (e.clientY - bRect.top) * (canvas.height / bRect.height);
-        newBody = new OrbitingBody(newMass, getRadiusFromMass(newMass), new Vector().xy(mouseX, mouseY), new Vector().xy(0, 0));
-        //newBody = new OrbitingBody(0, 1.5, new Vector().xy(mouseX, mouseY), new Vector().xy(0, 0));
+        
+        newBody = new OrbitingBody(
+            newMass, 
+            getRadiusFromMass(newMass), 
+            new Vector().xy(mouseX, mouseY), 
+            new Vector().xy(0, 0)
+            );
         newBody.color = newColor;
         newBody.trailEnabled = drawTrails;
 

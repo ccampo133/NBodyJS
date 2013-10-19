@@ -13,7 +13,10 @@
 OrbitingBody.prototype.drawBody = function (canvas)
 {
     var ctx = canvas.getContext("2d");
-    var x = canvas.width / 2 + this.position.x;     // position is relative to the origin, which I've put in the middle of the canvas, instead of the top-left corner
+    
+    // position is relative to the origin, which I've put in 
+    // the middle of the canvas (instead of the top-left corner).
+    var x = canvas.width / 2 + this.position.x;
     var y = canvas.height / 2 - this.position.y;
 
     // only draw bodies if they're in the canvas boundaries
@@ -35,7 +38,9 @@ OrbitingBody.prototype.drawBody = function (canvas)
         ctx.fill();
     }
     else
+    {
         this.outOfBounds = true;
+    }
 }
 
 OrbitingBody.prototype.drawTrail = function (canvas)
@@ -44,12 +49,17 @@ OrbitingBody.prototype.drawTrail = function (canvas)
     if (this.trailEnabled)
     {
         var context = canvas.getContext("2d");
-        var x = canvas.width / 2 + this.position.x;     // position is relative to the origin, which I've put in the middle of the canvas, instead of the top-left corner
+        
+        // position is relative to the origin, which I've put in 
+        // the middle of the canvas (instead of the top-left corner).
+        var x = canvas.width / 2 + this.position.x;
         var y = canvas.height / 2 - this.position.y;
         var shouldMoveTo = false;
 
         if (x < 0 || x > canvas.width || y < 0 || y > canvas.height)
+        {
             this.outOfBounds = true;
+        }
         else
         {
             if (this.outOfBounds)
@@ -57,6 +67,7 @@ OrbitingBody.prototype.drawTrail = function (canvas)
                 shouldMoveTo = true;
                 this.outOfBounds = false;
             }
+            
             var trailPt = { x: x, y: y, shouldMove: shouldMoveTo };
             this.trail.push(trailPt);
         }
@@ -65,6 +76,7 @@ OrbitingBody.prototype.drawTrail = function (canvas)
         {
             context.beginPath();
             context.moveTo(this.trail[0].x, this.trail[0].y);
+            
             for (var i = 1; i < this.trail.length; i++)
             {
                 var pt = this.trail[i];
@@ -73,6 +85,7 @@ OrbitingBody.prototype.drawTrail = function (canvas)
                 else
                     context.lineTo(pt.x, pt.y);
             }
+            
             context.strokeStyle = "white";
             context.lineWidth = 1.01;
             context.stroke();

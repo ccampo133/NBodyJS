@@ -60,19 +60,19 @@ a:hover
 
 #header
 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.9em;
-    text-decoration:underline;
+    font-family: Helvetica, Arial, sans-serif;/*Arial, Helvetica, sans-serif;*/
+    font-size: 20px;
     margin-top: 0px;
     position: absolute;
-    top: -45px;
+    top: -50px;
     width: 98%;
+    color: #B6B6B6;
 }
 
 #copy
 {
-    font-size: 0.6em;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif;
     position: absolute;
     bottom: -30px;
     width: 98%;
@@ -80,9 +80,9 @@ a:hover
 
 #footer
 {
-    font-size: 0.6em;
+    font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
     position: absolute;
-    bottom: -50px;
+    bottom: -60px;
     width: 98%;
 }
