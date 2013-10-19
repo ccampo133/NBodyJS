@@ -43,7 +43,7 @@ a:hover
     position: absolute;
     width: 1000px;
     height: 560px;
-    top: -280px;
+    top: -240px;
     left: -500px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -71,18 +71,18 @@ a:hover
 
 #copy
 {
-    font-size: 14px;
+    font-size: 10px;
     font-family: Helvetica, Arial, sans-serif;
     position: absolute;
-    bottom: -30px;
+    bottom: -25px;
     width: 98%;
 }
 
 #footer
 {
-    font-size: 12px;
+    font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
     position: absolute;
-    bottom: -60px;
+    bottom: -45px;
     width: 98%;
 }
