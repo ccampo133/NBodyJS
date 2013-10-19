@@ -5,9 +5,9 @@ In an n-body gravity simulator, the magnitude of the force `F[i]` acting on each
 
     F[i] = Sum(G  * (m[i] * m[j]) / r[i, j]^2), where j = 1....n and j != i
     
-where `m[i]` is the mass of body `i`, `m[j]` is the mass of body `j`, and `r[i, j]` is the distance from `i` to `j`.  Of course, force is a vector quantity, so the force vector with magnitude `F[i]` is just a unit vector in the direction from `i` to `j`, scaled by `F[i]`.
+where `G` is the gravitational constant, `m[i]` is the mass of body `i`, `m[j]` is the mass of body `j`, and `r[i, j]` is the distance from `i` to `j`.  Of course, force is a vector quantity, so the force vector with magnitude `F[i]` is just a unit vector in the direction from `i` to `j`, scaled by `F[i]`.
 
-In the case of gravity simulations, the forces due to gravity get exceedingly large as bodies get closer to each other (due to the 1/r<sup>2</sup> nature of the gravitational force), and hence bodies tend to rapidly accelerate and zoom off when they seemingly "collide". To compensate for this, a softening length `R^2` has been applied in the gravity calculation to prevent bodies from zipping off into the abyss when they get near each-other.
+In the case of gravity simulations, the forces due to gravity get exceedingly large as bodies get closer to each other (due to the 1/r<sup>2</sup> nature of the gravitational force), and hence bodies tend to rapidly accelerate and zoom off when they seemingly "collide". To compensate for this, a softening length `R^2` has been applied in the gravity calculation to prevent bodies from zipping off into the abyss when they get near each-other.  Also, `G` has been set to 1 for simplicity in NBodyJS.
 
 To compute the positions and velocities of all of the bodies, NBodyJS utilizes the [**Velocity Verlet**](http://en.wikipedia.org/wiki/Verlet_integration#Velocity_Verlet) method of numerical integration.  Verlet integration is a second-order method, which offers more stability than simpler, first order solutions such as [Euler's method](http://en.wikipedia.org/wiki/Euler_method), yet at no significant additional computational cost.
 
