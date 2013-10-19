@@ -9,6 +9,8 @@ Hold-click and use the scroll wheel to increase/decrease mass (and radius).
 
 Press 't' to toggle trails, 'p' to pause, 'c' to clear, and 'r' reset to the initial conditions.
 
+View NBodyJS in action on [GitHub Pages](http://ccampo133.github.io/NBodyJS/)!
+
 ### License
 This code is released under [The BSD License](https://github.com/ccampo133/NBodyJS/blob/gh-pages/LICENSE.txt).
 
