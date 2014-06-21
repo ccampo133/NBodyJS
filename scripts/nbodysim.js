@@ -337,5 +337,11 @@ function keyPressListener(e)
             bodies = new Array();
             deletedBodyTrails = new Array();
             break;
+        case 38: // up arrow
+            mouseWheelHandler({detail: 1});
+            break;
+        case 40: // down arrow
+            mouseWheelHandler({detail: -1});
+            break;
     }
 }

@@ -27,7 +27,7 @@ You can view NBodyJS in action on [GitHub Pages](http://ccampo133.github.io/NBod
 ## Controls
 
 * Click and fling to add new particles.
-* Hold-click and use the scroll wheel to increase/decrease mass (and radius).
+* Hold-click and use the scroll wheel (or up/down arrows) to increase/decrease mass (and radius).
 * Press 't' to toggle trails, 'p' to pause, 'c' to clear, and 'r' reset to the initial conditions.
 
 ## License
