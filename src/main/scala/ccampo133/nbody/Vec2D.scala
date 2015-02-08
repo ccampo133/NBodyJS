@@ -3,7 +3,7 @@ package main.scala.ccampo133.nbody
 /**
  * @author Chris Campo
  */
-class Vec2D(var x: Double, var y: Double) {
+class Vec2D(val x: Double, val y: Double) {
   def +(other: Vec2D) = new Vec2D(x + other.x, y + other.y)
   def -(other: Vec2D) = new Vec2D(x - other.x, y - other.y)
   def *(scalar: Double) = new Vec2D(scalar * x, scalar * y)
