@@ -1,4 +1,4 @@
-package main.scala.ccampo133.nbody
+package ccampo133.nbody
 
 /**
  * @author Chris Campo
