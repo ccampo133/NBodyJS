@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>NBodyJS</title>
+    <script type="text/javascript" src="../nbodyjs-opt.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/nbody-style.css"/>
+</head>
+<body onload="ccampo133.nbody.webapp.NBodyApp().main(document.getElementById('canvas'))">
+<div id="outer">
+    <div id="canvasContainer">
+        <div id="header">NBodyJS</div>
+        <canvas id="canvas" width="1000" height="560">
+            Sorry, your browser does not support HTML5 Canvas. May I suggest Google Chrome or Mozilla Firefox?
+        </canvas>
+        <div id="output">
+            Click and fling to add new bodies. Click, hold, and scroll (or press up/down) to increase/decrease mass.
+            Press <font color="silver">t</font> to toggle trails, <font color="silver">p</font> to
+            pause, <font color="silver">c</font> to clear, and <font color="silver">r</font> to
+            reset to the initial conditions.
+        </div>
+        <div id="footer"><a href="https://github.com/ccampo133/NBodyJS">View the code on GitHub!</a></p></div>
+        <div id="copy">&copy; 2015 C.J. Campo</div>
+    </div>
+</div>
+</body>
+</html>

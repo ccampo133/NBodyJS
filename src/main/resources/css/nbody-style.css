@@ -1,5 +1,4 @@
-﻿html, body
-{
+html, body {
     text-align: center;
     margin: 0;
     padding: 0;
@@ -8,8 +7,7 @@
     line-height: 1.25em;
 }
 
-canvas
-{
+canvas {
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -17,19 +15,17 @@ canvas
     background: black;
 }
 
-a
-{
+a {
     color: #00CBCB;
     text-decoration: none;
     font-weight: bold;
 }
-a:hover
-{
+
+a:hover {
     color: #FFFFFF;
 }
 
-#outer
-{
+#outer {
     position: absolute;
     top: 45%;
     left: 50%;
@@ -38,8 +34,7 @@ a:hover
     overflow: visible;
 }
 
-#canvasContainer
-{
+#canvasContainer {
     position: absolute;
     width: 1000px;
     height: 560px;
@@ -48,8 +43,7 @@ a:hover
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#output
-{
+#output {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.75em;
     margin-top: 0px;
@@ -58,9 +52,8 @@ a:hover
     width: 98%;
 }
 
-#header
-{
-    font-family: Helvetica, Arial, sans-serif;/*Arial, Helvetica, sans-serif;*/
+#header {
+    font-family: Helvetica, Arial, sans-serif; /*Arial, Helvetica, sans-serif;*/
     font-size: 20px;
     margin-top: 0px;
     position: absolute;
@@ -69,8 +62,7 @@ a:hover
     color: #B6B6B6;
 }
 
-#copy
-{
+#copy {
     font-size: 10px;
     font-family: Helvetica, Arial, sans-serif;
     position: absolute;
@@ -78,8 +70,7 @@ a:hover
     width: 98%;
 }
 
-#footer
-{
+#footer {
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
     position: absolute;
