@@ -38,35 +38,49 @@ object NBodyApp extends JSApp {
 
     bodies = bodies map (b => {
       val (x, v) = verlet(b.position, b.velocity, 0.05, pos => gravityAcceleration(pos, bodies - b))
-      new Body(b.mass, b.radius, x, v)
+      new Body(b.mass, b.radius, x, v, b.positions)
     })
   }
 
   def inbounds(x: Double, y: Double) =
     x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height
 
+  def xy(x0: Double, y0: Double) =
+    ((canvas.width / 2) + x0, (canvas.height / 2) - y0)
+
   def drawBody(body: Body): Unit = {
-    val w = canvas.width
-    val h = canvas.height
-
     // Draw the body relative to the CENTER of the canvas
-    val x = (w / 2) + body.position.x
-    val y = (h / 2) - body.position.y
+    val (x, y) = xy(body.position.x, body.position.y)
 
-    if (inbounds(x, y)) {
-      val grd = ctx.createRadialGradient(x, y, 0.1, x, y, 10 * math.log(body.radius))
-      grd.addColorStop(0, "wheat")
-      grd.addColorStop(1, "transparent")
+    // Only draw bodies that are in bounds
+    if (!inbounds(x, y)) return
 
-      // Fill with gradient
-      ctx.fillStyle = grd
-      ctx.fillRect(x - body.radius * 4, y - body.radius * 4, 150, 150)
+    val grd = ctx.createRadialGradient(x, y, 0.1, x, y, 10 * math.log(body.radius))
+    grd.addColorStop(0, "wheat")
+    grd.addColorStop(1, "transparent")
 
-      // Draw main circle
-      ctx.beginPath()
-      ctx.arc(x, y, body.radius, 0, 2 * Math.PI, anticlockwise = false)
-      ctx.fillStyle = "white"
-      ctx.fill()
-    }
+    // Fill with gradient
+    ctx.fillStyle = grd
+    ctx.fillRect(x - body.radius * 4, y - body.radius * 4, 150, 150)
+
+    // Draw main circle
+    ctx.beginPath()
+    ctx.arc(x, y, body.radius, 0, 2 * Math.PI, anticlockwise = false)
+    ctx.fillStyle = "white"
+    ctx.fill()
+  }
+
+  def drawTrail(body: Body): Unit = {
+    // Draw the body relative to the CENTER of the canvas
+    val x = (canvas.width / 2) + body.position.x
+    val y = (canvas.height / 2) - body.position.y
+
+    // Only draw for bodies that are in bounds
+    if (!inbounds(x, y)) return
+
+    body.positions filter (p => {
+      val (x, y) = xy(p.x, p.y)
+      inbounds(x, y)
+    })
   }
 }

@@ -3,7 +3,11 @@ package ccampo133.nbody
 /**
  * @author Chris Campo
  */
-class Body(var mass: Double, var radius: Double, var position: Vec2D, var velocity: Vec2D) {
-  // TODO: draw methods (body and trail)
-  override def toString = s"Body($mass, $radius, $position, $velocity)"
+class Body(
+    val mass: Double,
+    val radius: Double,
+    val position: Vec2D,
+    val velocity: Vec2D,
+    var positions: Seq[Vec2D] = Seq.empty[Vec2D]) {
+  override def toString = s"Body($mass, $radius, $position, $velocity, $positions)"
 }
