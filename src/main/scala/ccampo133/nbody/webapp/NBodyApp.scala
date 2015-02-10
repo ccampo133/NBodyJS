@@ -21,6 +21,9 @@ object NBodyApp extends JSApp {
       .asInstanceOf[dom.CanvasRenderingContext2D]
 
   var bodies = Set.empty[Body]
+  var trails = true
+  val numTrailPts = 150
+  val dt = 0.05
 
   def main(): Unit = {
     // Initial conditions
@@ -34,36 +37,47 @@ object NBodyApp extends JSApp {
 
   def run(): Unit = {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    bodies foreach drawBody
 
-    bodies = bodies map (b => {
-      val (x, v) = verlet(b.position, b.velocity, 0.05, pos => gravityAcceleration(pos, bodies - b))
-      new Body(b.mass, b.radius, x, v, b.positions)
-    })
+    // TODO: save deleted bodies so we can still draw their trails
+    bodies = for {
+      b1 <- bodies
+      b2 <- bodies
+      // Remove bodies that collide or are WAY out of bounds (to preserve resources)
+      if b1.isCollision(b2) ||
+        (math.abs(b1.position.x) > 2 * canvas.width || math.abs(b1.position.y) > 2 * canvas.height)
+    } yield b2
+
+    // Only draw bodies that are in bounds
+    bodies foreach { b =>
+      val (x, y) = xy(b.position.x, b.position.y)
+      if (inbounds(x, y)) drawBody(b)
+      if (trails && b.positions.length > 0) drawTrail(b)
+    }
+
+    // Update the positions of all bodies using the velocity Verlet algorithm
+    // and exclude the current body from the acceleration calculation
+    bodies = bodies map { b =>
+      val (x, v) = verlet(b.position, b.velocity, dt, pos => gravityAcceleration(pos, bodies - b))
+      new Body(b.mass, b.radius, x, v, (b.positions :+ x) takeRight numTrailPts)
+    }
   }
 
-  def inbounds(x: Double, y: Double) =
+  def inbounds(x: Double, y: Double): Boolean =
     x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height
 
-  def xy(x0: Double, y0: Double) =
+  // Returns a point relative to the CENTER of the canvas
+  def xy(x0: Double, y0: Double): (Double, Double) =
     ((canvas.width / 2) + x0, (canvas.height / 2) - y0)
 
   def drawBody(body: Body): Unit = {
-    // Draw the body relative to the CENTER of the canvas
     val (x, y) = xy(body.position.x, body.position.y)
-
-    // Only draw bodies that are in bounds
-    if (!inbounds(x, y)) return
-
     val grd = ctx.createRadialGradient(x, y, 0.1, x, y, 10 * math.log(body.radius))
     grd.addColorStop(0, "wheat")
     grd.addColorStop(1, "transparent")
 
-    // Fill with gradient
+    // Fill with gradient and draw the main circle
     ctx.fillStyle = grd
     ctx.fillRect(x - body.radius * 4, y - body.radius * 4, 150, 150)
-
-    // Draw main circle
     ctx.beginPath()
     ctx.arc(x, y, body.radius, 0, 2 * Math.PI, anticlockwise = false)
     ctx.fillStyle = "white"
