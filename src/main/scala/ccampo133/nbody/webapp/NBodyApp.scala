@@ -71,16 +71,15 @@ object NBodyApp extends JSApp {
   }
 
   def drawTrail(body: Body): Unit = {
-    // Draw the body relative to the CENTER of the canvas
-    val x = (canvas.width / 2) + body.position.x
-    val y = (canvas.height / 2) - body.position.y
-
-    // Only draw for bodies that are in bounds
-    if (!inbounds(x, y)) return
-
-    body.positions filter (p => {
+    ctx.beginPath()
+    val (x, y) = xy(body.positions(0).x, body.positions(0).y)
+    ctx.moveTo(x, y)
+    body.positions drop 1 foreach { p =>
       val (x, y) = xy(p.x, p.y)
-      inbounds(x, y)
-    })
+      if (inbounds(x, y)) ctx.lineTo(x, y) else ctx.moveTo(x, y)
+    }
+    ctx.strokeStyle = "white"
+    ctx.lineWidth = 1.01
+    ctx.stroke()
   }
 }
