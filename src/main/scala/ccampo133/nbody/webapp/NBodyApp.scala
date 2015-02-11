@@ -32,7 +32,7 @@ object NBodyApp extends JSApp {
     bodies += new Body(0, 3, new Vec2D(50, 0), new Vec2D(0, -30))
     bodies += new Body(0, 3, new Vec2D(75, 0), new Vec2D(0, 30))
 
-    // Start the main loop
+    // Start the main animation loop
     dom.setInterval(() => run(), 1000 / 60)
   }
 
