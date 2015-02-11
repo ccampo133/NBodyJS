@@ -20,6 +20,7 @@ object NBodyApp extends JSApp {
     canvas.getContext("2d")
       .asInstanceOf[dom.CanvasRenderingContext2D]
 
+  var delBodies = Set.empty[Body]
   var bodies = Set.empty[Body]
   var trails = true
   val numTrailPts = 150
@@ -38,14 +39,14 @@ object NBodyApp extends JSApp {
   def run(): Unit = {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // TODO: save deleted bodies so we can still draw their trails
-    bodies = for {
-      b1 <- bodies
-      b2 <- bodies
-      // Remove bodies that collide or are WAY out of bounds (to preserve resources)
-      if b1.isCollision(b2) ||
-        (math.abs(b1.position.x) > 2 * canvas.width || math.abs(b1.position.y) > 2 * canvas.height)
-    } yield b2
+    // Get bodies that collide or are WAY out of bounds (to preserve resources)
+    val curDeletedBodies = for {
+      l <- for(b1 <- bodies; b2 <- bodies if b1 != b2) yield (b1, b2)
+      if (l._1 isCollision l._2) || outOfMap(l._1.position.x, l._1.position.y)
+    } yield l._1
+
+    bodies --= curDeletedBodies
+    delBodies ++= curDeletedBodies
 
     // Only draw bodies that are in bounds
     bodies foreach { b =>
@@ -53,6 +54,8 @@ object NBodyApp extends JSApp {
       if (inbounds(x, y)) drawBody(b)
       if (trails && b.positions.length > 0) drawTrail(b)
     }
+
+    if (trails) delBodies foreach drawTrail
 
     // Update the positions of all bodies using the velocity Verlet algorithm
     // and exclude the current body from the acceleration calculation
@@ -64,6 +67,9 @@ object NBodyApp extends JSApp {
 
   def inbounds(x: Double, y: Double): Boolean =
     x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height
+
+  def outOfMap(x: Double, y: Double): Boolean =
+    math.abs(x) > 2 * canvas.width || math.abs(y) > 2 * canvas.height
 
   // Returns a point relative to the CENTER of the canvas
   def xy(x0: Double, y0: Double): (Double, Double) =
