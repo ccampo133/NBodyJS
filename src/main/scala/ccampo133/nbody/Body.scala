@@ -13,7 +13,7 @@ class Body(
   if (positions.isEmpty) positions :+= position
 
   def isCollision(other: Body): Boolean = {
-    val r = other.position - position
+    val r = position - other.position
     r.length() < other.radius && mass <= other.mass
   }
 }
