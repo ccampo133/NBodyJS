@@ -13,11 +13,10 @@ object Physics {
   }
 
   def gravityAcceleration(pos: Vec2D, bodies: Set[Body]): Vec2D = {
-    bodies map (b => gravity(pos, b)) reduceLeft ((a1, a2) => a1 + a2)
-  }
-
-  private def gravity(pos1: Vec2D, body2: Body): Vec2D = {
-    val r12 = body2.position - pos1
-    r12 * body2.mass * G / math.pow(r12.length(), 2)
+    def gravity(pos: Vec2D)(body2: Body): Vec2D = {
+      val r12 = body2.position - pos
+      r12 * body2.mass * G / math.pow(r12.length, 2)
+    }
+    (bodies map gravity(pos)).sum
   }
 }

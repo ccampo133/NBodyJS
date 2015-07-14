@@ -48,13 +48,13 @@ object Vec2DTests extends TestSuite {
 
     'testLength {
       val v1 = new Vec2D(1, 2)
-      assert(math.abs(v1.length() - math.sqrt(5)) < epsilon)
+      assert(math.abs(v1.length - math.sqrt(5)) < epsilon)
     }
 
     'testGetUnitVector {
       val v1 = new Vec2D(3, 5)
-      val v2 = Vec2D.getUnitVector(v1)
-      assert(math.abs(v2.length() - 1) < epsilon) // Check for unit length
+      val v2 = v1.toUnitVector
+      assert(math.abs(v2.length - 1) < epsilon) // Check for unit length
       assert(math.atan(v2.y / v2.x) - math.atan(v1.y / v1.x) < epsilon) // Check same direction
     }
   }

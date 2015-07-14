@@ -14,6 +14,6 @@ class Body(
 
   def isCollision(other: Body): Boolean = {
     val r = position - other.position
-    r.length() < other.radius && mass <= other.mass
+    r.length < other.radius && mass <= other.mass
   }
 }

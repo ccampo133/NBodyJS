@@ -52,7 +52,7 @@ object NBodyApp extends JSApp {
     bodies foreach { b =>
       val (x, y) = xy(b.position.x, b.position.y)
       if (inbounds(x, y)) drawBody(b)
-      if (trails && b.positions.length > 0) drawTrail(b)
+      if (trails && b.positions.nonEmpty) drawTrail(b)
     }
 
     if (trails) delBodies foreach drawTrail
@@ -92,9 +92,9 @@ object NBodyApp extends JSApp {
 
   def drawTrail(body: Body): Unit = {
     ctx.beginPath()
-    val (x, y) = xy(body.positions(0).x, body.positions(0).y)
+    val (x, y) = xy(body.positions.head.x, body.positions.head.y)
     ctx.moveTo(x, y)
-    body.positions drop 1 foreach { p =>
+    body.positions.tail foreach { p =>
       val (x, y) = xy(p.x, p.y)
       if (inbounds(x, y)) ctx.lineTo(x, y) else ctx.moveTo(x, y)
     }
