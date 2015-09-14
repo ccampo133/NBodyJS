@@ -17,6 +17,6 @@ object Physics {
       val r12 = body2.position - pos
       r12 * body2.mass * G / math.pow(r12.length, 2)
     }
-    (bodies map gravity(pos)).sum
+    bodies map gravity(pos) reduceLeft(_ + _)
   }
 }
