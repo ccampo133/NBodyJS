@@ -22,3 +22,30 @@ repositories {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion"
 }
+
+compileKotlin2Js {
+  kotlinOptions.metaInfo = true
+  kotlinOptions.outputFile = "$project.buildDir.path/web/lib/nbody.js"
+  kotlinOptions.sourceMap = true
+  kotlinOptions.main = "call"
+}
+
+build.doLast {
+  configurations.compile.each { File file ->
+    copy {
+      includeEmptyDirs = false
+
+      from zipTree(file.absolutePath)
+      into "${project.buildDir}/web/lib"
+      include { fileTreeElement ->
+        final path = fileTreeElement.path
+        path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+      }
+    }
+  }
+
+  copy {
+    from "src/main/webapp"
+    into "${project.buildDir}/web"
+  }
+}
