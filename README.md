@@ -1,6 +1,6 @@
 NBodyJS
 
-An HTML5/JavaScript n-body simulator... written in Scala.
+An HTML5/JavaScript n-body simulator... written in Kotlin.
 
 See the `plain-js` branch to see a version of the app written in vanilla JavaScript :)
 
