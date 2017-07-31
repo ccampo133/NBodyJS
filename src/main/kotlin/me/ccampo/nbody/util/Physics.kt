@@ -17,8 +17,8 @@ val G = 1 // Gravitational constant
  * @param a The acceleration function
  */
 fun verlet(x: Vector, v: Vector, dt: Double, a: (Vector) -> Vector): Pair<Vector, Vector> {
-  val x1 = (x plus (v times dt)) plus (a(x) times (Math.pow(dt, 2.0) / 2.0))
-  val v1 = v plus ((a(x) plus a(x1)) times (dt / 2))
+  val x1 = (x + (v * dt)) + (a(x) * (Math.pow(dt, 2.0) / 2.0))
+  val v1 = v + ((a(x) + a(x1)) * (dt / 2))
   return Pair(x1, v1)
 }
 
@@ -37,8 +37,8 @@ fun gravityAcceleration(x: Vector, bodies: Set<Body>): Vector {
    * Newton's second law (F = ma)
    */
   fun gravity(pos: Vector, body2: Body): Vector {
-    val r12 = body2.x minus pos
-    return r12 times (body2.m * G) / Math.pow(r12.len, 2.0)
+    val r12 = body2.x - pos
+    return r12 * (body2.m * G) / Math.pow(r12.len, 2.0)
   }
-  return bodies.map { body -> gravity(x, body) }.reduce { b1, b2 -> b1 plus b2 }
+  return bodies.map { body -> gravity(x, body) }.reduce { a1, a2 -> a1 + a2 }
 }

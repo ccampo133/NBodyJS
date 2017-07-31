@@ -1,6 +1,7 @@
 package me.ccampo.nbody.util
 
 import me.ccampo.nbody.model.Body
+import me.ccampo.nbody.model.Vector
 import org.w3c.dom.CanvasRenderingContext2D
 import org.w3c.dom.HTMLCanvasElement
 import kotlin.js.Math
@@ -22,8 +23,8 @@ fun HTMLCanvasElement.isInbounds(x: Double, y: Double): Boolean {
 /**
  * Returns a point relative to the center of the canvas via a linear transformation of an (x, y) point.
  *
- * @param x0 The original point's x coordiate
- * @param y0 The original point's y coordiate
+ * @param x0 The original point's x coordinate
+ * @param y0 The original point's y coordinate
  */
 fun HTMLCanvasElement.xy(x0: Double, y0: Double): Pair<Double, Double> {
   return Pair((width / 2.0) + x0, (height / 2.0) - y0)
@@ -46,10 +47,12 @@ fun HTMLCanvasElement.draw(bodies: Set<Body>, trails: Boolean = false, deletedBo
   bodies.forEach {
     val (x, y) = xy(it.x.x, it.x.y)
     if (isInbounds(x, y)) drawBody(it)
-    if (trails && it.positions.isNotEmpty()) drawTrail(it)
+    // TODO: draw trails here -ccampo 2017-07-31
+    //if (trails && it.positions.isNotEmpty()) drawTrail(it)
   }
 
-  if (trails) deletedBodies?.forEach { drawTrail(it) }
+  // TODO: draw trails here -ccampo 2017-07-31
+  //if (trails) deletedBodies?.forEach { drawTrail(it) }
 }
 
 /**
@@ -78,13 +81,13 @@ fun HTMLCanvasElement.drawBody(body: Body) {
  *
  * @param body The body who's trail to draw
  */
-fun HTMLCanvasElement.drawTrail(body: Body) {
+fun HTMLCanvasElement.drawTrail(positions: List<Vector>) {
   val ctx = getContext("2d") as CanvasRenderingContext2D
   ctx.beginPath()
-  val (x, y) = xy(body.positions.first().x, body.positions.first().y)
+  val (x, y) = xy(positions.first().x, positions.first().y)
   ctx.moveTo(x, y)
 
-  body.positions.drop(1).forEach {
+  positions.drop(1).forEach {
     val (px, py) = xy(it.x, it.y)
     if (isInbounds(px, py)) ctx.lineTo(px, py) else ctx.moveTo(px, py)
   }
