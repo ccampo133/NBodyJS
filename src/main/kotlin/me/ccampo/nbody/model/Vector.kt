@@ -17,4 +17,8 @@ data class Vector(val x: Double, val y: Double) {
   operator fun times(scalar: Double) = Vector(scalar * x, scalar * y)
   operator fun div(scalar: Double) = Vector(x / scalar, y / scalar)
   infix fun dot(other: Vector) = (x * other.x) + (y * other.y)
+
+  companion object {
+    val zero = Vector(0.0, 0.0)
+  }
 }

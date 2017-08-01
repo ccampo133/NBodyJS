@@ -16,9 +16,7 @@ import kotlin.js.Math
  * @param x the x coordinate of the point to check
  * @param y ths y coordinate of the point to check
  */
-fun HTMLCanvasElement.isInbounds(x: Double, y: Double): Boolean {
-  return x >= 0 && x <= width && y >= 0 && y <= height
-}
+fun HTMLCanvasElement.isInbounds(x: Double, y: Double) = x >= 0 && x <= width && y >= 0 && y <= height
 
 /**
  * Returns a point relative to the center of the canvas via a linear transformation of an (x, y) point.
@@ -26,9 +24,7 @@ fun HTMLCanvasElement.isInbounds(x: Double, y: Double): Boolean {
  * @param x0 The original point's x coordinate
  * @param y0 The original point's y coordinate
  */
-fun HTMLCanvasElement.xy(x0: Double, y0: Double): Pair<Double, Double> {
-  return Pair((width / 2.0) + x0, (height / 2.0) - y0)
-}
+fun HTMLCanvasElement.xy(x0: Double, y0: Double) = Pair((width / 2.0) + x0, (height / 2.0) - y0)
 
 /**
  * Draws a set of circular bodies (and trails if specified) on the canvas.
@@ -47,12 +43,11 @@ fun HTMLCanvasElement.draw(bodies: Set<Body>, trails: Boolean = false, deletedBo
   bodies.forEach {
     val (x, y) = xy(it.x.x, it.x.y)
     if (isInbounds(x, y)) drawBody(it)
-    // TODO: draw trails here -ccampo 2017-07-31
-    //if (trails && it.positions.isNotEmpty()) drawTrail(it)
+    if (trails && it.positions.isNotEmpty()) drawTrail(it.positions)
   }
 
-  // TODO: draw trails here -ccampo 2017-07-31
-  //if (trails) deletedBodies?.forEach { drawTrail(it) }
+  // Draw the trails of bodies that have been deleted (collided, too far away, etc)
+  if (trails) deletedBodies?.forEach { drawTrail(it.positions) }
 }
 
 /**
