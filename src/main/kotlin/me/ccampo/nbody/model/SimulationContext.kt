@@ -1,9 +1,8 @@
-package me.ccampo.nbody.simulation
+package me.ccampo.nbody.model
 
-import me.ccampo.nbody.model.Body
 import me.ccampo.nbody.util.gravityAcceleration
+import me.ccampo.nbody.util.isWayOutOfBounds
 import me.ccampo.nbody.util.verlet
-import kotlin.js.Math
 
 /**
  * Runs an n-body gravity simulation using Verlet integration.
@@ -14,28 +13,32 @@ import kotlin.js.Math
  * @param nPos The number of historical positions to track, per body
  * @param nOld The number of old bodies to track after they've been removed (collided, escaped, etc)
  */
-class NBodySimulation(
+class SimulationContext(
     val dt: Double,
-    var bodies: Set<Body> = emptySet<Body>(),
-    width: Int = 100,
-    height: Int = 100,
+    val initBodies: Set<Body> = emptySet<Body>(),
+    val width: Int = 100,
+    val height: Int = 100,
     val nPos: Int = 0,
     val nOld: Int = 0) {
 
-  val area = Area(width, height)
+  var bodies = initBodies
+    private set
+
   var removedBodies: List<Body> = listOf()
+    private set
 
-  fun run(callback: (Set<Body>, Set<Body>) -> Unit) {
-    callback(bodies, removedBodies.toSet())
-
+  /**
+   * Move the simulation forward one timestep.
+   */
+  fun run() {
     // Remove bodies that collide or are WAY out of bounds (to preserve resources)
     val bodiesToRemove = bodies.filter { b ->
-      area.isWayOutOfBounds(b.x.x, b.x.y) || (bodies - b).any { b.isCollision(it) }
+      isWayOutOfBounds(b.x.x, b.x.y, width, height) || (bodies - b).any { b.isCollision(it) }
     }
 
     bodies -= bodiesToRemove
 
-    // Keep only the last `n` removed bodies
+    // Keep only the last "nOld" removed bodies
     removedBodies = (removedBodies + bodiesToRemove).takeLast(nOld)
 
     // Update the positions of all bodies using the "Velocity Verlet" algorithm
@@ -46,15 +49,21 @@ class NBodySimulation(
     }.toSet()
   }
 
+  fun clear() {
+    removedBodies = listOf()
+    bodies = emptySet()
+  }
+
+  fun reset() {
+    removedBodies = listOf()
+    bodies = initBodies
+  }
+
   fun clearPositionHistory() {
     bodies = bodies.map { body -> body.copy(positions = emptyList()) }.toSet()
   }
 
   fun addBody(body: Body) {
     bodies += body
-  }
-
-  data class Area(val width: Int, val height: Int) {
-    fun isWayOutOfBounds(x: Double, y: Double) = (Math.abs(x) > 2 * width) || (Math.abs(y) > 2 * height)
   }
 }

@@ -40,5 +40,5 @@ fun gravityAcceleration(x: Vector, bodies: Set<Body>): Vector {
     val r12 = body2.x - pos
     return r12 * (body2.m * G) / Math.pow(r12.len, 2.0)
   }
-  return bodies.map { body -> gravity(x, body) }.reduce { a1, a2 -> a1 + a2 }
+  return bodies.map { body -> gravity(x, body) }.fold(Vector.zero) { a1, a2 -> a1 + a2 }
 }

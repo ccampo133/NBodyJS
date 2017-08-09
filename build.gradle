@@ -1,6 +1,7 @@
 buildscript {
   ext {
     kotlinVersion = "1.1.3-2"
+    kodeinVersion = "4.1.0"
   }
   repositories {
   	mavenCentral()
@@ -21,6 +22,7 @@ repositories {
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion"
+  //compile "com.github.salomonbrys.kodein:kodein-js:$kodeinVersion"
 }
 
 compileKotlin2Js {

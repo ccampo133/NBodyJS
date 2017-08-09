@@ -67,14 +67,14 @@ fun HTMLCanvasElement.drawBody(body: Body) {
   ctx.fillRect(x - body.r * 4, y - body.r * 4, 150.0, 150.0)
   ctx.beginPath()
   ctx.arc(x, y, body.r, 0.0, 2 * Math.PI, anticlockwise = false)
-  ctx.fillStyle = "white"
+  ctx.fillStyle = massToColor(body.m)
   ctx.fill()
 }
 
 /**
  * Draws the trail of a body using its previous positions.
  *
- * @param body The body who's trail to draw
+ * @param positions The positions (points) to draw the trail along
  */
 fun HTMLCanvasElement.drawTrail(positions: List<Vector>) {
   val ctx = getContext("2d") as CanvasRenderingContext2D
