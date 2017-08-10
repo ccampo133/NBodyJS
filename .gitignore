@@ -443,3 +443,4 @@ buildNumber.properties
 # Compiled files
 *.tfstate
 *.tfstate.backup
+!/lib/
