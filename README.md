@@ -27,7 +27,7 @@ For the algorithm to work, first you need to specify the initial conditions of t
 
 This algorithm is executed every time you take a time step, `dt`.  Since every body exerts a force on every other body, computing the accelerations is done in O(N<sup>2</sup>) time.  There are quicker, yet similarily accurate algorithms out there, so feel free to implement your own version if you feel like experimenting!  Also note that this method can be used to integrate Newton's laws for nearly any force(s), not just gravity!
 
-Finally, NBodyJS utilizes the HTML5 canvas element for display, and uses vanilla JavaScript for all of its calculations.
+NBodyJS utilizes the HTML5 canvas element for display, and [`kotlin-js`](https://kotlinlang.org/docs/tutorials/javascript/kotlin-to-javascript/kotlin-to-javascript.html) to transpile Kotlin to Javascript.
 
 You can view NBodyJS in action on [GitHub Pages](http://ccampo133.github.io/NBodyJS/)!
 
