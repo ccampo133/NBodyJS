@@ -14,6 +14,7 @@ import kotlin.browser.window
 
 class Application {
 
+  // Initial conditions
   val initBodies: Set<Body> = setOf(
       Body(100000.0, massToRadius(100000.0), Vector(0.0, 0.0), Vector(0.0, 0.0)),
       Body(0.0, massToRadius(10.0), Vector(20.0, 0.0), Vector(0.0, 70.0)),

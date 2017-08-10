@@ -4,15 +4,17 @@ import kotlin.js.Math
 
 /**
  * Silly function that determines a visually pleasing radius as a function of mass.
- * Strictly for visualization purposes only.
+ * The formula is pretty arbitrary. I got it by picking some radii I liked and
+ * plotting them, and then fitting a log function to the data. Strictly for
+ * visualization purposes.
  */
 fun massToRadius(mass: Double): Double {
-  return if (mass > 1) Math.max(1.02, (10 * Math.log(mass) / Math.log(10.0) - 14) / 3) else 1.1
+  return if (mass > 1) Math.max(1.5, (10 * Math.log(mass) / Math.log(10.0) - 14) / 3) else 1.02
 }
 
 /**
  * Another silly function that determines the color of an object based on mass.
- * Again, strictly for visualization purposes only.
+ * Again, strictly for visualization purposes.
  */
 fun massToColor(mass: Double): String {
   when {

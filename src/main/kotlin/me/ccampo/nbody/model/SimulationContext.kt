@@ -8,8 +8,9 @@ import me.ccampo.nbody.util.verlet
  * Runs an n-body gravity simulation using Verlet integration.
  *
  * @param dt The timestep
- * @param bodies The set of initial bodies
- * @param area The simulation area grid
+ * @param initBodies The set of initial bodies
+ * @param width The simulation area width
+ * @param height The simulation area height
  * @param nPos The number of historical positions to track, per body
  * @param nOld The number of old bodies to track after they've been removed (collided, escaped, etc)
  */

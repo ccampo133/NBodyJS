@@ -3,7 +3,9 @@ package me.ccampo.nbody.util
 import me.ccampo.nbody.model.Body
 import me.ccampo.nbody.model.Vector
 import org.w3c.dom.CanvasRenderingContext2D
+import org.w3c.dom.CanvasTextAlign
 import org.w3c.dom.HTMLCanvasElement
+import org.w3c.dom.LEFT
 import kotlin.js.Math
 
 /**
@@ -90,4 +92,27 @@ fun HTMLCanvasElement.drawTrail(positions: List<Vector>) {
   ctx.strokeStyle = "white"
   ctx.lineWidth = 1.01
   ctx.stroke()
+}
+
+/**
+ * Draws (multi-line) white text at a specific (x, y) position.
+ */
+fun HTMLCanvasElement.drawText(
+    text: String,
+    x: Double,
+    y: Double,
+    font: String = "10px Arial",
+    fillStyle: String = "white",
+    textAlign: CanvasTextAlign = CanvasTextAlign.LEFT) {
+  val ctx = getContext("2d") as CanvasRenderingContext2D
+  ctx.font = font
+  ctx.fillStyle = fillStyle
+  ctx.textAlign = textAlign
+
+  val lineHeight = ctx.measureText("M").width * 1.2
+  var dy = y
+  text.split("\n").forEach {
+    ctx.fillText(it, x, dy)
+    dy += lineHeight
+  }
 }
