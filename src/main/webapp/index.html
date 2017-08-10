@@ -3,10 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>NBodyJS</title>
-    <script type="text/javascript" src="../nbodyjs-fastopt.js"></script>
+    <script type="text/javascript" src="lib/kotlin.js"></script>
+    <script type="text/javascript" src="lib/nbody.js"></script>
     <link rel="stylesheet" type="text/css" href="css/nbody-style.css"/>
 </head>
-<body onload="ccampo133.nbody.webapp.NBodyApp().main()">
+<body onload="(new nbody.me.ccampo.nbody.web.Application()).start()">
 <div id="outer">
     <div id="canvasContainer">
         <div id="header">NBodyJS</div>
@@ -14,13 +15,13 @@
             Sorry, your browser does not support HTML5 Canvas. May I suggest Google Chrome or Mozilla Firefox?
         </canvas>
         <div id="output">
-            Click and fling to add new bodies. Click, hold, and scroll (or press up/down) to increase/decrease mass.
+            Click and fling! Click, hold, and scroll (or press up/down) to increase/decrease mass.
             Press <font color="silver">t</font> to toggle trails, <font color="silver">p</font> to
             pause, <font color="silver">c</font> to clear, and <font color="silver">r</font> to
-            reset to the initial conditions.
+            reset to initial conditions.
         </div>
         <div id="footer"><a href="https://github.com/ccampo133/NBodyJS">View the code on GitHub!</a></p></div>
-        <div id="copy">&copy; 2015 C.J. Campo</div>
+        <div id="copy">&copy; 2017 C.J. Campo</div>
     </div>
 </div>
 </body>
