@@ -29,7 +29,7 @@ This algorithm is executed every time you take a time step, `dt`.  Since every b
 
 NBodyJS utilizes the HTML5 canvas element for display, and [`kotlin-js`](https://kotlinlang.org/docs/tutorials/javascript/kotlin-to-javascript/kotlin-to-javascript.html) to transpile Kotlin to Javascript.
 
-You can view NBodyJS in action on [GitHub Pages](http://ccampo133.github.io/NBodyJS/)!
+You can view NBodyJS in action on [GitHub Pages](http://ccampo133.github.io/NBodyJS)!
 
 For more information on N-body simulations in general, see [Scholarpedia](http://www.scholarpedia.org/article/N-body_simulations_(gravitational)).
 
