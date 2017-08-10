@@ -4,7 +4,8 @@ import me.ccampo.nbody.model.Body
 import me.ccampo.nbody.model.Vector
 import kotlin.js.Math
 
-val G = 1 // Gravitational constant
+const val G = 1.0 // Gravitational constant
+const val SOFTENING_LENGTH = 2.0
 
 /**
  * Numerically integrate Newton's equations of motion using the "Velocity Verlet" algorithm.
@@ -35,10 +36,15 @@ fun gravityAcceleration(x: Vector, bodies: Set<Body>): Vector {
   /*
    * Newton's Law of Gravity. Here we're only returning the acceleration vector, not the force vector, according to
    * Newton's second law (F = ma)
+   *
+   * Also, a "softening length" is applied to modify gravitational interactions at small scales, avoiding a singularity
+   * and hence crazy accelerations.
+   *
+   * See: http://www.scholarpedia.org/article/N-body_simulations_(gravitational)
    */
   fun gravity(pos: Vector, body2: Body): Vector {
     val r12 = body2.x - pos
-    return r12 * (body2.m * G) / Math.pow(r12.len, 2.0)
+    return r12 * (body2.m * G) / Math.pow(Math.pow(r12.len, 2.0) + Math.pow(SOFTENING_LENGTH, 2.0), 3/2.0)
   }
   return bodies.map { body -> gravity(x, body) }.fold(Vector.zero) { a1, a2 -> a1 + a2 }
 }

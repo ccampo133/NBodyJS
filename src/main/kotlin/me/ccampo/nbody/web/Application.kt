@@ -15,11 +15,15 @@ import kotlin.browser.window
 class Application {
 
   val initBodies: Set<Body> = setOf(
-      Body(10000.0, massToRadius(100000.0), Vector(0.0, 0.0), Vector(0.0, 0.0)),
-      Body(0.0, massToRadius(100.0), Vector(50.0, 0.0), Vector(0.0, -100.0)),
-      Body(0.0, massToRadius(100.0), Vector(175.0, 0.0), Vector(0.0, 100.0)))
+      Body(100000.0, massToRadius(100000.0), Vector(0.0, 0.0), Vector(0.0, 0.0)),
+      Body(0.0, massToRadius(10.0), Vector(20.0, 0.0), Vector(0.0, 70.0)),
+      Body(0.0, massToRadius(75.0), Vector(50.0, 0.0), Vector(0.0, 45.0)),
+      Body(0.0, massToRadius(80.0), Vector(75.0, 0.0), Vector(0.0, 37.0)),
+      Body(0.0, massToRadius(80.0), Vector(120.0, 0.0), Vector(0.0, 29.0)),
+      Body(0.0, massToRadius(1000.0), Vector(220.0, 0.0), Vector(0.0, 21.0))
+  )
 
-  val numTrailPts: Int = 250
+  val numTrailPts: Int = 1000
   val dt: Double = 0.05
   val targetFps: Int = 60
   val canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement
