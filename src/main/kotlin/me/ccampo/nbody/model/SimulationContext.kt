@@ -61,7 +61,7 @@ class SimulationContext(
   }
 
   fun clearPositionHistory() {
-    bodies = bodies.map { body -> body.copy(positions = emptyList()) }.toSet()
+    bodies = bodies.map { it.copy(positions = emptyList()) }.toSet()
   }
 
   fun addBody(body: Body) {
