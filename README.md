@@ -4,7 +4,7 @@
 
 See the `plain-js` branch to see a version of the app written in vanilla JavaScript :)
 
-Also, check out a working [demo on GitHub pages](http://ccampo133.github.com/NBodyJS)
+Also, check out a working [demo on GitHub pages](https://www.ccampo.me/NBodyJS/)
 
 ## Background
 
