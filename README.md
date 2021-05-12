@@ -56,6 +56,6 @@ For Windows:
 First build (see above), and then to run the application, open `build/web/index.html`.
 
 ## License
-This code is released under [The BSD License](https://github.com/ccampo133/NBodyJS/blob/gh-pages/LICENSE.txt).
+This code is released under [the MIT License](https://github.com/ccampo133/NBodyJS/blob/gh-pages/LICENSE.txt).
 
 Copyright &copy; 2017 Christopher J. Campo. All Rights Reserved.
